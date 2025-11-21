@@ -34,6 +34,13 @@ public sealed interface PointerStore permits PointerStoreImpl {
   void registerPointer(final @NotNull Pointer<?> pointer);
 
   @ApiStatus.NonExtendable
+  default void removePointer(final @NotNull PointerKey<?> pointerKey) {
+    this.removePointer(pointerKey.getKey(), pointerKey.getType());
+  }
+
+  void removePointer(final @NotNull String key, final @NotNull Class<?> type);
+
+  @ApiStatus.NonExtendable
   default <T> @Nullable Pointer<T> getPointer(final @NotNull PointerKey<T> pointerKey) {
     return this.getPointer(pointerKey.getKey(), pointerKey.getType());
   }
