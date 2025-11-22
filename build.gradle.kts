@@ -10,6 +10,9 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+
+    withSourcesJar()
+    withJavadocJar()
 }
 
 repositories {
@@ -37,6 +40,8 @@ indra {
     mitLicense()
 
     configurePublications {
+        from(components["java"])
+
         pom {
             developers {
                 developer {
