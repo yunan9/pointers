@@ -1,17 +1,37 @@
 package io.github.yunan9.pointer.store;
 
-import static io.github.yunan9.pointer.Pointer.newPointer;
-
 import io.github.yunan9.pointer.Pointer;
 import io.github.yunan9.pointer.key.PointerKey;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnmodifiableView;
+import org.jetbrains.annotations.*;
 
 public sealed interface PointerStore permits PointerStoreImpl {
+
+  int INITIAL_POINTER_STORE_CAPACITY = 64;
+
+  float POINTER_STORE_LOAD_FACTOR = .75f;
+
+  @Contract("_ -> new")
+  static @NotNull PointerStore newPointerStore(
+      final @NotNull Map<@NotNull PointerKey<?>, @NotNull Pointer<?>> pointers) {
+    return new PointerStoreImpl(pointers);
+  }
+
+  @Contract(" -> new")
+  static @NotNull PointerStore newPointerStore() {
+    return newPointerStore(
+        new HashMap<>(INITIAL_POINTER_STORE_CAPACITY, POINTER_STORE_LOAD_FACTOR));
+  }
+
+  @Contract(" -> new")
+  static @NotNull PointerStore newConcurrentPointerStore() {
+    return newPointerStore(
+        new ConcurrentHashMap<>(INITIAL_POINTER_STORE_CAPACITY, POINTER_STORE_LOAD_FACTOR));
+  }
 
   @UnmodifiableView
   @NotNull
@@ -19,33 +39,15 @@ public sealed interface PointerStore permits PointerStoreImpl {
 
   @ApiStatus.NonExtendable
   default <T> void registerPointer(
-      final @NotNull String key,
-      final @NotNull Class<T> type,
-      final @NotNull Supplier<T> valueSupplier) {
-    this.registerPointer(newPointer(key, type, valueSupplier));
-  }
-
-  @ApiStatus.NonExtendable
-  default <T> void registerPointer(
       final @NotNull PointerKey<T> pointerKey, final @NotNull Supplier<T> valueSupplier) {
-    this.registerPointer(pointerKey.getKey(), pointerKey.getType(), valueSupplier);
+    this.registerPointer(Pointer.newPointer(pointerKey, valueSupplier));
   }
 
   void registerPointer(final @NotNull Pointer<?> pointer);
 
-  @ApiStatus.NonExtendable
-  default void removePointer(final @NotNull PointerKey<?> pointerKey) {
-    this.removePointer(pointerKey.getKey(), pointerKey.getType());
-  }
+  void removePointer(final @NotNull PointerKey<?> pointerKey);
 
-  void removePointer(final @NotNull String key, final @NotNull Class<?> type);
-
-  @ApiStatus.NonExtendable
-  default <T> @Nullable Pointer<T> getPointer(final @NotNull PointerKey<T> pointerKey) {
-    return this.getPointer(pointerKey.getKey(), pointerKey.getType());
-  }
-
-  <T> @Nullable Pointer<T> getPointer(final @NotNull String key, final @NotNull Class<T> type);
+  <T> @Nullable Pointer<T> getPointer(final @NotNull PointerKey<T> pointerKey);
 
   @FunctionalInterface
   interface Holder {

@@ -3,51 +3,39 @@ package io.github.yunan9.pointer.store;
 import static java.util.Objects.requireNonNull;
 
 import io.github.yunan9.pointer.Pointer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import io.github.yunan9.pointer.key.PointerKey;
+import java.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnmodifiableView;
 
 final class PointerStoreImpl implements PointerStore {
 
-  private final Collection<@NotNull Pointer<?>> pointers;
+  private final Map<@NotNull PointerKey<?>, @NotNull Pointer<?>> pointers;
 
-  PointerStoreImpl(final @UnmodifiableView @NotNull Collection<@NotNull Pointer<?>> pointers) {
-    this.pointers = pointers.isEmpty() ? new ArrayList<>(1) : new ArrayList<>(pointers);
+  PointerStoreImpl(final @NotNull Map<@NotNull PointerKey<?>, @NotNull Pointer<?>> pointers) {
+    this.pointers = pointers;
   }
 
   @Override
   public @UnmodifiableView @NotNull Collection<@NotNull Pointer<?>> getPointers() {
-    return Collections.unmodifiableCollection(this.pointers);
+    return Collections.unmodifiableCollection(this.pointers.values());
   }
 
   @Override
   public void registerPointer(final @NotNull Pointer<?> pointer) {
-    this.pointers.add(requireNonNull(pointer));
+    requireNonNull(pointer);
+
+    this.pointers.put(pointer.getKey(), pointer);
   }
 
   @Override
-  public void removePointer(final @NotNull String key, final @NotNull Class<?> type) {
-    final var pointer = this.getPointer(key, type);
-    if (pointer == null) {
-      return;
-    }
-
-    this.pointers.remove(pointer);
+  public void removePointer(final @NotNull PointerKey<?> pointerKey) {
+    this.pointers.remove(requireNonNull(pointerKey));
   }
 
   @Override
-  public @Nullable <T> Pointer<T> getPointer(
-      final @NotNull String key, final @NotNull Class<T> type) {
-    requireNonNull(key);
-    requireNonNull(type);
-
-    return (Pointer<T>)
-        this.pointers.stream()
-            .filter(pointer -> pointer.getKey().equals(key) && pointer.getType() == type)
-            .findFirst()
-            .orElse(null);
+  public @Nullable <T> Pointer<T> getPointer(final @NotNull PointerKey<T> pointerKey) {
+    return (Pointer<T>) this.pointers.get(requireNonNull(pointerKey));
   }
 }
