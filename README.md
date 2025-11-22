@@ -28,14 +28,14 @@ Designed for registries, plugin systems, dynamic configuration layers, and depen
 
 ```kotlin
 dependencies {
-    implementation("io.github.yunan9:pointer:<version>")
+    implementation("io.github.yunan9:pointers:<version>")
 }
 ```
 
 ```xml
 <dependency>
   <groupId>io.github.yunan9</groupId>
-  <artifactId>pointer</artifactId>
+  <artifactId>pointers</artifactId>
   <version>VERSION_HERE</version>
 </dependency>
 ```
