@@ -1,8 +1,11 @@
 [versions]
 jmh = '1.37'
+indra = '4.0.0'
 
 [plugins]
-jmh-gradle-plugin = 'me.champeau.jmh:0.7.3'
+jmh = 'me.champeau.jmh:0.7.3'
+
+indra-publishing-sonatype = { id = 'net.kyori.indra.publishing.sonatype', version.ref = 'indra' }
 
 [libraries]
 jmh-core = { module = 'org.openjdk.jmh:jmh-core', version.ref = 'jmh' }
