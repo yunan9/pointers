@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.jmh)
     alias(libs.plugins.indra.publishing)
+    alias(libs.plugins.indra.publishing.sonatype)
 
     `java-library`
     `maven-publish`
