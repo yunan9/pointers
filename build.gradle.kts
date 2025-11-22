@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.jmh.gradle.plugin)
+    alias(libs.plugins.jmh)
+    alias(libs.plugins.indra.publishing)
 
     `java-library`
     `maven-publish`
@@ -24,41 +25,24 @@ dependencies {
     jmhAnnotationProcessor(libs.jmh.generator.annprocess)
 }
 
-//TODO -> Either rework this to work with releases, or move to KyoriPowered's Indra for Maven publications.
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-
-            val githubRepository = System.getenv("GITHUB_REPOSITORY")
-            val githubRepositoryUrl = "https://github.com/$githubRepository"
-            pom {
-                url = githubRepositoryUrl
-                name = project.name
-                description = project.description
-
-                developers {
-                    developer {
-                        id = "yunan9"
-                    }
-                }
-
-                scm {
-                    url = githubRepositoryUrl
-                    connection = "scm:git:$githubRepositoryUrl.git"
-                    developerConnection = "scm:git:ssh://git@github.com/$githubRepository.git"
-                }
-            }
-        }
+indra {
+    javaVersions {
+        target(21)
     }
 
-    repositories {
-        maven {
-            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+    github("yunan9", "pointers") {
+        ci(true)
+    }
 
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_TOKEN")
+    mitLicense()
+
+    configurePublications {
+        pom {
+            developers {
+                developer {
+                    id = "yunan9"
+                    name = "Yunan"
+                }
             }
         }
     }
