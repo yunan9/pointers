@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.indra.publishing.sonatype)
 
     `java-library`
-    `maven-publish`
 }
 
 java {
