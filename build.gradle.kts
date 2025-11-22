@@ -29,6 +29,19 @@ dependencies {
     jmhAnnotationProcessor(libs.jmh.generator.annprocess)
 }
 
+tasks {
+    javadoc {
+        configureEach {
+            (options as StandardJavadocDocletOptions).apply {
+                addBooleanOption("html5", true)
+
+                encoding = "UTF-8"
+                charSet = "UTF-8"
+            }
+        }
+    }
+}
+
 indra {
     javaVersions {
         target(21)
@@ -39,6 +52,8 @@ indra {
     }
 
     mitLicense()
+
+    signWithKeyFromPrefixedProperties("yunan9")
 
     configurePublications {
         from(components["java"])
