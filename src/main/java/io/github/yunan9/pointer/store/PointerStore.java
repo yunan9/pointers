@@ -46,7 +46,8 @@ public sealed interface PointerStore permits PointerStoreImpl {
   }
 
   @ApiStatus.NonExtendable
-  default <T> void registerPointer(final PointerKey<T> pointerKey, final @NotNull T value) {
+  default <T> void registerPointer(
+      final @NotNull PointerKey<T> pointerKey, final @NotNull T value) {
     this.registerPointer(newPointer(pointerKey, () -> value));
   }
 
