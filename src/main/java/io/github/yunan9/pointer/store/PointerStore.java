@@ -1,5 +1,7 @@
 package io.github.yunan9.pointer.store;
 
+import static io.github.yunan9.pointer.Pointer.newPointer;
+
 import io.github.yunan9.pointer.Pointer;
 import io.github.yunan9.pointer.key.PointerKey;
 import java.util.Collection;
@@ -40,7 +42,12 @@ public sealed interface PointerStore permits PointerStoreImpl {
   @ApiStatus.NonExtendable
   default <T> void registerPointer(
       final @NotNull PointerKey<T> pointerKey, final @NotNull Supplier<T> valueSupplier) {
-    this.registerPointer(Pointer.newPointer(pointerKey, valueSupplier));
+    this.registerPointer(newPointer(pointerKey, valueSupplier));
+  }
+
+  @ApiStatus.NonExtendable
+  default <T> void registerPointer(final PointerKey<T> pointerKey, final @NotNull T value) {
+    this.registerPointer(newPointer(pointerKey, () -> value));
   }
 
   void registerPointer(final @NotNull Pointer<?> pointer);
