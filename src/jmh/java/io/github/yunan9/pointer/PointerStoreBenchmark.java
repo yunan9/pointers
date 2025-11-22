@@ -2,6 +2,7 @@ package io.github.yunan9.pointer;
 
 import static io.github.yunan9.pointer.Pointer.newPointer;
 import static io.github.yunan9.pointer.key.PointerKey.newPointerKey;
+import static io.github.yunan9.pointer.store.PointerStore.*;
 
 import io.github.yunan9.pointer.key.PointerKey;
 import io.github.yunan9.pointer.store.PointerStore;
@@ -50,7 +51,7 @@ public class PointerStoreBenchmark {
       @Override
       @NotNull
       PointerStore create() {
-        return PointerStore.newPointerStore();
+        return newPointerStore();
       }
     },
 
@@ -59,7 +60,7 @@ public class PointerStoreBenchmark {
       @Override
       @NotNull
       PointerStore create() {
-        return PointerStore.newConcurrentPointerStore();
+        return newConcurrentPointerStore();
       }
     };
 
