@@ -16,6 +16,12 @@ java {
     withJavadocJar()
 }
 
+configurations {
+    jmhImplementation.configure {
+        extendsFrom(configurations.compileOnly.get())
+    }
+}
+
 repositories {
     mavenCentral()
     maven("https://central.sonatype.com/repository/maven-snapshots/")
