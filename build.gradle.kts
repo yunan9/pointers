@@ -1,5 +1,5 @@
 plugins {
-    id("me.champeau.jmh") version "0.7.3"
+    alias(libs.plugins.jmh.gradle.plugin)
 
     `java-library`
     `maven-publish`
@@ -17,14 +17,12 @@ repositories {
 }
 
 dependencies {
-    api("io.github.yunan9:commons:0.1.3-SNAPSHOT")
-    api("org.jetbrains:annotations:26.0.2-1")
+    compileOnly(libs.yunan9.commons)
+    compileOnly(libs.jetbrains.annotations)
 
-    jmh(parseJmhDependencyAnnotation("jmh-core"))
-    jmhAnnotationProcessor(parseJmhDependencyAnnotation("jmh-generator-annprocess"))
+    jmh(libs.jmh.core)
+    jmhAnnotationProcessor(libs.jmh.generator.annprocess)
 }
-
-fun parseJmhDependencyAnnotation(artifactId: String) = "org.openjdk.jmh:$artifactId:1.37"
 
 //TODO -> Either rework this to work with releases, or move to KyoriPowered's Indra for Maven publications.
 publishing {
