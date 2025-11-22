@@ -1,11 +1,11 @@
 [versions]
-jmh = '1.37'
 indra = '4.0.0'
+jmh = '1.37'
 
 [plugins]
-jmh = 'me.champeau.jmh:0.7.3'
-
 indra-publishing = { id = 'net.kyori.indra.publishing', version.ref = 'indra' }
+
+jmh = 'me.champeau.jmh:0.7.3'
 
 [libraries]
 jmh-core = { module = 'org.openjdk.jmh:jmh-core', version.ref = 'jmh' }
