@@ -49,17 +49,17 @@ import io.github.yunan9.pointer.Pointer;
 import io.github.yunan9.pointer.key.PointerKey;
 import io.github.yunan9.pointer.store.PointerStore;
 
-PointerKey<String> NAME = PointerKey.newPointerKey("name", String.class);
-PointerKey<Integer> LEVEL = PointerKey.newPointerKey("level", int.class);
+PointerKey<String> NAME_POINTER_KEY = PointerKey.newPointerKey("name", String.class);
+PointerKey<Integer> LEVEL_POINTER_KEY = PointerKey.newPointerKey("level", int.class);
 
 PointerStore store = PointerStore.newConcurrentPointerStore();
 
-store.registerPointer(NAME, () -> "Steve");
-store.registerPointer(LEVEL, () -> computeLevel());
+store.registerPointer(NAME_POINTER_KEY, () -> "Steve");
+store.registerPointer(LEVEL_POINTER_KEY, () -> computeLevel());
 
 // Retrieve
-String name = store.getPointer(NAME).getValue();   // "Steve"
-int level = store.getPointer(LEVEL).getValue();    // computed int
+String name = store.getPointer(NAME_POINTER_KEY).getValue();   // "Steve"
+int level = store.getPointer(LEVEL_POINTER_KEY).getValue();    // computed int
 ```
 
 ---
@@ -69,33 +69,34 @@ int level = store.getPointer(LEVEL).getValue();    // computed int
 ### Create a typed key
 
 ```java
-PointerKey<Boolean> enabled =
+PointerKey<Boolean> enabledPointerKey =
     PointerKey.newPointerKey("enabled", boolean.class);
 ```
 
 ### Register a pointer (lazy)
 
 ```java
-store.registerPointer(enabled, () -> checkDatabaseFlag());
+store.registerPointer(enabledPointerKey, () -> checkDatabaseFlag());
 ```
 
 ### Register a pointer (manual)
 
 ```java
-Pointer<Boolean> pointer = Pointer.newPointer(enabled, () -> true);
+Pointer<Boolean> pointer = Pointer.newPointer(enabledPointerKey, () -> true);
 store.registerPointer(pointer);
 ```
 
 ### Remove
 
 ```java
-store.removePointer(enabled);
+store.removePointer(enabledPointerKey);
 ```
 
 ### List pointers
 
 ```java
-store.getPointers().forEach(pointer -> {
+var pointers = store.getPointers();
+pointers.forEach(pointer -> {
     System.out.println(pointer.getKey().getKey());
 });
 ```
