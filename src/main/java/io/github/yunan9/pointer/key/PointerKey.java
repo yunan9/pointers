@@ -1,6 +1,6 @@
 package io.github.yunan9.pointer.key;
 
-import io.github.yunan9.commons.key.Keyable;
+import io.github.yunan9.commons.reference.Referenceable;
 import io.github.yunan9.commons.type.Typeable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>A {@code PointerKey} combines:
  *
  * <ul>
- *   <li>a string identifier ({@link #getKey()}), and
+ *   <li>a string identifier ({@link #getReference()}), and
  *   <li>a {@link Class type token} ({@link #getType()}) describing the value type.
  * </ul>
  *
@@ -21,21 +21,21 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <T> the value type associated with this key
  */
-public sealed interface PointerKey<T> extends Keyable<@NotNull String>, Typeable<@NotNull Class<T>>
-    permits PointerKeyImpl {
+public sealed interface PointerKey<T>
+    extends Referenceable<@NotNull String>, Typeable<@NotNull Class<T>> permits PointerKeyImpl {
 
   /**
    * Creates a new {@link PointerKey} for the given key and type.
    *
-   * @param key the string identifier for this key
+   * @param reference the string identifier for this key
    * @param type the runtime type token associated with this key
    * @param <O> the value type associated with the key
    * @return a new {@link PointerKey} instance
    */
   @Contract(value = "_, _ -> new", pure = true)
   static <O> @NotNull PointerKey<O> newPointerKey(
-      final @NotNull String key, final @NotNull Class<O> type) {
-    return new PointerKeyImpl<>(key, type);
+      final @NotNull String reference, final @NotNull Class<O> type) {
+    return new PointerKeyImpl<>(reference, type);
   }
 
   /**
@@ -45,7 +45,7 @@ public sealed interface PointerKey<T> extends Keyable<@NotNull String>, Typeable
    */
   @Override
   @NotNull
-  String getKey();
+  String getReference();
 
   /**
    * Returns the runtime type token associated with this key.

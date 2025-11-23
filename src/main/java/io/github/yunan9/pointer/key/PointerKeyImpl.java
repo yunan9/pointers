@@ -4,19 +4,19 @@ import org.jetbrains.annotations.NotNull;
 
 final class PointerKeyImpl<T> implements PointerKey<T> {
 
-  private final String key;
+  private final String reference;
 
   private final Class<T> type;
 
-  PointerKeyImpl(final @NotNull String key, final @NotNull Class<T> type) {
-    this.key = key;
+  PointerKeyImpl(final @NotNull String reference, final @NotNull Class<T> type) {
+    this.reference = reference;
 
     this.type = type;
   }
 
   @Override
-  public @NotNull String getKey() {
-    return this.key;
+  public @NotNull String getReference() {
+    return this.reference;
   }
 
   @Override
@@ -34,11 +34,11 @@ final class PointerKeyImpl<T> implements PointerKey<T> {
       return false;
     }
 
-    return this.key.equals(other.key) && this.type.equals(other.type);
+    return this.reference.equals(other.reference) && this.type.equals(other.type);
   }
 
   @Override
   public int hashCode() {
-    return 31 * this.key.hashCode() + this.type.hashCode();
+    return 31 * this.reference.hashCode() + this.type.hashCode();
   }
 }
