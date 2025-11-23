@@ -17,7 +17,7 @@ java {
 
 configurations {
     jmhImplementation.configure {
-        extendsFrom(configurations.compileOnly.get())
+        extendsFrom(compileOnly.get())
     }
 }
 
