@@ -130,6 +130,7 @@ public class PointerStoreBenchmark {
     @Setup
     public void setUp() {
       this.store = this.storeType.create();
+
       this.counter = 0;
     }
 
@@ -176,15 +177,15 @@ public class PointerStoreBenchmark {
   @Benchmark
   public void registerPointer_withKeyAndSupplier(final @NotNull WriteState state) {
     final var key = state.nextKey();
-    state.store.registerPointer(key, () -> "dynamic-" + key.getKey());
+
+    state.store.registerPointer(key, () -> "dynamic-" + key.getReference());
   }
 
   /** Register a pointer via an explicitly created instance. */
   @Benchmark
   public void registerPointer_withPointerInstance(final @NotNull WriteState state) {
     final var key = state.nextKey();
-    final var pointer = newPointer(key, () -> "dynamic-" + key.getKey());
 
-    state.store.registerPointer(pointer);
+    state.store.registerPointer(newPointer(key, () -> "dynamic-" + key.getReference()));
   }
 }
