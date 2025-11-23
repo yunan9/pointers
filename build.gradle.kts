@@ -35,12 +35,14 @@ dependencies {
 }
 
 tasks {
-    withType<Javadoc>().configureEach {
-        (options as StandardJavadocDocletOptions).apply {
-            addBooleanOption("html5", true)
+    withType<Javadoc> {
+        configureEach {
+            (options as StandardJavadocDocletOptions).apply {
+                addBooleanOption("html5", true)
 
-            encoding = "UTF-8"
-            charSet = "UTF-8"
+                encoding = "UTF-8"
+                charSet = "UTF-8"
+            }
         }
     }
 }
