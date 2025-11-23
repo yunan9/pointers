@@ -97,7 +97,7 @@ store.removePointer(enabledPointerKey);
 ```java
 var pointers = store.getPointers();
 pointers.forEach(pointer -> {
-    System.out.println(pointer.getKey().getKey());
+    System.out.println(pointer.getKey().getReference());
 });
 ```
 
