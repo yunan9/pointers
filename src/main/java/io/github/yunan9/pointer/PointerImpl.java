@@ -17,12 +17,12 @@ final class PointerImpl<T> implements Pointer<T> {
   }
 
   @Override
-  public @NotNull PointerKey<T> getKey() {
+  public @NotNull PointerKey<T> key() {
     return this.key;
   }
 
   @Override
-  public T getValue() {
+  public T value() {
     return this.valueSupplier.get();
   }
 }

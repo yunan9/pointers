@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
  * <p>A {@code PointerKey} combines:
  *
  * <ul>
- *   <li>a string identifier ({@link #getReference()}), and
- *   <li>a {@link Class type token} ({@link #getType()}) describing the value type.
+ *   <li>a string identifier ({@link #reference()}), and
+ *   <li>a {@link Class type token} ({@link #type()}) describing the value type.
  * </ul>
  *
  * <p>The combination of key and type allows implementations to provide type-safe access to
@@ -45,7 +45,7 @@ public sealed interface PointerKey<T>
    */
   @Override
   @NotNull
-  String getReference();
+  String reference();
 
   /**
    * Returns the runtime type token associated with this key.
@@ -54,5 +54,5 @@ public sealed interface PointerKey<T>
    */
   @Override
   @NotNull
-  Class<T> getType();
+  Class<T> type();
 }

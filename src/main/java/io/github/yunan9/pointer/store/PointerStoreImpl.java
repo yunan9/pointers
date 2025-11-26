@@ -26,7 +26,7 @@ final class PointerStoreImpl implements PointerStore {
   public void registerPointer(final @NotNull Pointer<?> pointer) {
     requireNonNull(pointer);
 
-    this.pointers.put(pointer.getKey(), pointer);
+    this.pointers.put(pointer.key(), pointer);
   }
 
   @Override
@@ -35,7 +35,7 @@ final class PointerStoreImpl implements PointerStore {
   }
 
   @Override
-  public @Nullable <T> Pointer<T> getPointer(final @NotNull PointerKey<T> pointerKey) {
+  public @Nullable <T> Pointer<T> pointer(final @NotNull PointerKey<T> pointerKey) {
     return (Pointer<T>) this.pointers.get(requireNonNull(pointerKey));
   }
 }

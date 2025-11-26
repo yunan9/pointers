@@ -2,11 +2,7 @@ package io.github.yunan9.pointer.key;
 
 import org.jetbrains.annotations.NotNull;
 
-final class PointerKeyImpl<T> implements PointerKey<T> {
-
-  private final String reference;
-
-  private final Class<T> type;
+record PointerKeyImpl<T>(String reference, Class<T> type) implements PointerKey<T> {
 
   PointerKeyImpl(final @NotNull String reference, final @NotNull Class<T> type) {
     this.reference = reference;
@@ -15,12 +11,12 @@ final class PointerKeyImpl<T> implements PointerKey<T> {
   }
 
   @Override
-  public @NotNull String getReference() {
+  public @NotNull String reference() {
     return this.reference;
   }
 
   @Override
-  public @NotNull Class<T> getType() {
+  public @NotNull Class<T> type() {
     return this.type;
   }
 
@@ -37,8 +33,4 @@ final class PointerKeyImpl<T> implements PointerKey<T> {
     return this.reference.equals(other.reference) && this.type.equals(other.type);
   }
 
-  @Override
-  public int hashCode() {
-    return 31 * this.reference.hashCode() + this.type.hashCode();
-  }
 }

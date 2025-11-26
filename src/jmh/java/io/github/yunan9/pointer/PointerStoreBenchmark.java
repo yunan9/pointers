@@ -149,7 +149,7 @@ public class PointerStoreBenchmark {
   public void getPointer_hit(final @NotNull ReadState state, final @NotNull Blackhole blackhole) {
     final var random = ThreadLocalRandom.current();
     blackhole.consume(
-        state.store.getPointer(state.existingKeys[random.nextInt(state.pointerCount)]));
+        state.store.pointer(state.existingKeys[random.nextInt(state.pointerCount)]));
   }
 
   /** Lookup with guaranteed misses. */
@@ -157,7 +157,7 @@ public class PointerStoreBenchmark {
   public void getPointer_miss(final @NotNull ReadState state, final @NotNull Blackhole blackhole) {
     final var random = ThreadLocalRandom.current();
     blackhole.consume(
-        state.store.getPointer(state.missingKeys[random.nextInt(state.pointerCount)]));
+        state.store.pointer(state.missingKeys[random.nextInt(state.pointerCount)]));
   }
 
   /** Lookup with mixed hit/miss ratio. */
@@ -167,7 +167,7 @@ public class PointerStoreBenchmark {
     final var hit = random.nextInt(100) < state.hitRatio;
 
     blackhole.consume(
-        state.store.getPointer(
+        state.store.pointer(
             hit
                 ? state.existingKeys[random.nextInt(state.pointerCount)]
                 : state.missingKeys[random.nextInt(state.pointerCount)]));
@@ -178,7 +178,7 @@ public class PointerStoreBenchmark {
   public void registerPointer_withKeyAndSupplier(final @NotNull WriteState state) {
     final var key = state.nextKey();
 
-    state.store.registerPointer(key, () -> "dynamic-" + key.getReference());
+    state.store.registerPointer(key, () -> "dynamic-" + key.reference());
   }
 
   /** Register a pointer via an explicitly created instance. */
@@ -186,6 +186,6 @@ public class PointerStoreBenchmark {
   public void registerPointer_withPointerInstance(final @NotNull WriteState state) {
     final var key = state.nextKey();
 
-    state.store.registerPointer(newPointer(key, () -> "dynamic-" + key.getReference()));
+    state.store.registerPointer(newPointer(key, () -> "dynamic-" + key.reference()));
   }
 }

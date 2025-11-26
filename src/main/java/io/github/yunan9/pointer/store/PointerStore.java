@@ -125,7 +125,7 @@ public sealed interface PointerStore permits PointerStoreImpl {
    * @param <T> the value type associated with the pointer key
    * @return the pointer associated with {@code pointerKey}, or {@code null} if none exists
    */
-  <T> @Nullable Pointer<T> getPointer(final @NotNull PointerKey<T> pointerKey);
+  <T> @Nullable Pointer<T> pointer(final @NotNull PointerKey<T> pointerKey);
 
   /**
    * Simple abstraction for types that hold a {@link PointerStore}.
@@ -141,6 +141,6 @@ public sealed interface PointerStore permits PointerStoreImpl {
      * @return the pointer store
      */
     @NotNull
-    PointerStore getPointerStore();
+    PointerStore pointerStore();
   }
 }

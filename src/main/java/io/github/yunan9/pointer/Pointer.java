@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>A {@code Pointer} associates a {@link PointerKey} with a value of type {@code T}.
  * Implementations are free to compute the value eagerly or lazily, but callers should treat {@link
- * #getValue()} as the canonical access point.
+ * #value()} as the canonical access point.
  *
  * @param <T> the value type of this pointer
  */
@@ -43,7 +43,7 @@ public sealed interface Pointer<T> extends Keyable<@NotNull PointerKey<T>>, Valu
    */
   @Override
   @NotNull
-  PointerKey<T> getKey();
+  PointerKey<T> key();
 
   /**
    * Returns the value associated with this pointer.
@@ -53,5 +53,5 @@ public sealed interface Pointer<T> extends Keyable<@NotNull PointerKey<T>>, Valu
    * @return the pointer's value
    */
   @Override
-  T getValue();
+  T value();
 }
