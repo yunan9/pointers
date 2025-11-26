@@ -58,8 +58,8 @@ store.registerPointer(NAME_POINTER_KEY, () -> "Steve");
 store.registerPointer(LEVEL_POINTER_KEY, () -> computeLevel());
 
 // Retrieve
-String name = store.getPointer(NAME_POINTER_KEY).getValue();   // "Steve"
-int level = store.getPointer(LEVEL_POINTER_KEY).getValue();    // computed int
+String name = store.getPointer(NAME_POINTER_KEY).value();   // "Steve"
+int level = store.getPointer(LEVEL_POINTER_KEY).value();    // computed int
 ```
 
 ---
@@ -95,9 +95,9 @@ store.removePointer(enabledPointerKey);
 ### List pointers
 
 ```java
-var pointers = store.getPointers();
+var pointers = store.pointers();
 pointers.forEach(pointer -> {
-    System.out.println(pointer.getKey().getReference());
+    System.out.println(pointer.key().reference());
 });
 ```
 
