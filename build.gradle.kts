@@ -6,9 +6,11 @@ plugins {
     `java-library`
 }
 
+val javaVersion = 21
+
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(javaVersion)
     }
 
     withSourcesJar()
@@ -49,7 +51,7 @@ tasks {
 
 indra {
     javaVersions {
-        target(21)
+        target(javaVersion)
     }
 
     github("yunan9", "pointers") {
