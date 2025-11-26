@@ -84,7 +84,7 @@ public sealed interface PointerStore permits PointerStoreImpl {
    */
   @UnmodifiableView
   @NotNull
-  Collection<@NotNull Pointer<?>> getPointers();
+  Collection<@NotNull Pointer<?>> pointers();
 
   /**
    * Registers a new {@link Pointer} created from the given key and value supplier.

@@ -18,7 +18,7 @@ final class PointerStoreImpl implements PointerStore {
   }
 
   @Override
-  public @UnmodifiableView @NotNull Collection<@NotNull Pointer<?>> getPointers() {
+  public @UnmodifiableView @NotNull Collection<@NotNull Pointer<?>> pointers() {
     return Collections.unmodifiableCollection(this.pointers.values());
   }
 
