@@ -2,8 +2,8 @@ name: Publish Release to Maven Central
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
 
 jobs:
   publish:
